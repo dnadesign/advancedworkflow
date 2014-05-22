@@ -69,11 +69,8 @@ class WorkflowService implements PermissionProvider {
 			if ($dataObject->WorkflowDefinitionID) {
 				return DataObject::get_by_id('WorkflowDefinition', $dataObject->WorkflowDefinitionID);
 			}
-			if ($dataObject->hasMethod('customWorkflow')) {
-				$obj = $dataObject->customWorkflow();
-				if ($obj) {
-					return $this->getDefinitionFor($obj);
-				}
+			if ($dataObject->hasMethod('useInheritedWorkflow') && !$this->useInheritedWorkflow()) {
+				return null;
 			}
 			if ($dataObject->ParentID) {
 				return $this->getDefinitionFor($dataObject->Parent());
