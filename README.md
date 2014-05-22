@@ -129,6 +129,10 @@ and select "Save draft" or "Save and Publish" as usual.
 Your new workflow has now been associated with your new page. If you select the "Content" tab, you should notice a new button available labeled as per your
 first workflow action, which should be "Apply for approval" - if you've followed the instructions above.
 
+If sitemap inheritance is not what you desire then you can stop inheritance on a specific page type by adding a useInheritedWorkflow method. This method is designed to return a true or false, therefore stopping the inheritance from the parent.
+
+If you need pagetypes to be automatically assigned a specific workflow, we'd recommend adding an extension to the WorkflowDefition to define the page type(s) it's meant to be used for, and then an onBeforeWrite on the page type, to find and assign that WorkflwoDefinition.
+
 ### Testing and Using Your New Workflow
 
 Logout of the CMS and log back in again as your "Author" user.
