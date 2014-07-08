@@ -48,6 +48,7 @@ class WorkflowActionInstance extends DataObject {
 		if ($this->BaseAction()->AllowCommenting) {	
 			$fields->push(new TextareaField('Comment', _t('WorkflowAction.COMMENT', 'Comment')));
 		}
+		$this->extend('updateWorkflowFields', $fields);
 	}
 	
 	public function updateFrontendWorkflowFields($fields){
