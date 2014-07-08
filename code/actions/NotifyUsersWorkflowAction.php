@@ -92,6 +92,7 @@ class NotifyUsersWorkflowAction extends WorkflowAction {
 			'Items'		=> $workflow->Actions(),
 			'Member'	=> Member::currentUser(),
 			'Context'	=> $workflow->getTarget(),
+			'Workflow' 	=> $workflow,
 			'CommentHistory' => $variables["\$CommentHistory"]
 		));
 		
