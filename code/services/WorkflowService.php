@@ -6,8 +6,8 @@
  * @license BSD License (http://silverstripe.org/bsd-license/)
  * @package advancedworkflow
  */
-class WorkflowService implements PermissionProvider {
-	
+class WorkflowService extends Object implements PermissionProvider {
+
 	/**
 	 * An array of templates that we can create from
 	 * 
@@ -16,6 +16,7 @@ class WorkflowService implements PermissionProvider {
 	protected $templates;
 	
 	public function  __construct() {
+		parent::__construct();
 	}
 
 	
@@ -240,6 +241,8 @@ class WorkflowService implements PermissionProvider {
 			->sort('LastEdited DESC');
 
 		if(Permission::checkMember($user, 'ADMIN')) {
+			$this->extend('updateUserPendingItems', $userInstances);
+
 			return $userInstances;
 		}
 		$instances = new ArrayList();
@@ -250,7 +253,9 @@ class WorkflowService implements PermissionProvider {
 			}
 			$instances->push($inst);
 		}
-		
+
+		$this->extend('updateUserPendingItems', $instances);
+
 		return $instances;
 	}
 
@@ -269,6 +274,8 @@ class WorkflowService implements PermissionProvider {
 		if(!Permission::checkMember($user, 'ADMIN')) {
 			$userInstances = $userInstances->filter('InitiatorID:ExactMatch', $user->ID);
 		}
+
+		$this->extend('updateUserSubmittedItems', $userInstances);
 
 		return $userInstances;
 	}
