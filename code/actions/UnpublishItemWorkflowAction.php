@@ -68,7 +68,7 @@ class UnpublishItemWorkflowAction extends WorkflowAction {
 	 * @return bool
 	 */
 	public function canPublishTarget(DataObject $target) {
-		return false;
+		return true;
 	}
 
 }
